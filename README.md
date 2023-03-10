@@ -2,7 +2,10 @@
 
 This is the docs repo of the Open Science project.
 
-WIP: Its very much a work in progress as we try approaches out. Contact me if your interested..
+WIP: Its very much a work in progress as we try approaches out. Contact me if your interested.
+
+Mermaid sequence diagrams to come soon.
+
 ![](logo.png)
 
 ## Aims
@@ -22,6 +25,8 @@ From an Editors perspective it's made up of:
 - Logic 
 
 - Data
+
+- Bus
 
 ### Editor
 
@@ -43,31 +48,75 @@ OnLine Rendering: Its fast enough to do animations on most modern machines.
 
 Off Line rendering: For Video outout or massive lasrge PDF or Images, the Edit history is used as a Non Linear Editor, so that you can render at 4 K if needed. 
 
-Render targets are: WASM ( Web, Mobile Desktop, TV ), PDF, PNG, SVG, Web. This is a type of Single Sourcing.
+Render targets are: WASM ( Web, Mobile Desktop, TV ), PDF, PNG, SVG, Web and Video. This is a type of Single Sourcing because a single IDL can produce all these outputs.
 
-### Logic
+Render Target Reuse: You can reuse the outputs as inputs. For example a Project can import a Video or PNG, do work with them and output other things. 
+
+Project Modules: This reuse is a Module system, with a Registry, allowing you to find Projects and import them into your proejct. 
+
+Its a turtles all the way down system.
+
+### Logic ( UDF: User Defiend Functions )
 
 Developers write logic in any language that compiles to WASM.
 
-The code is WASM to WASM on the fly, via the Cloud Server, and synced back to your Editor or Disk.
+The code is compiled to WASM on the fly, via the Cloud Server, and synced back to your local disk.
 
-That WASM runs in the Client and Server.
+That WASM can then be utilised in the GUI or the Backend ( Simpe process watchig your local disk )
 
 ### Data
 
-All data is stored on your local disk, and is a Git Repo.
 
-All data is saved as pointers in the Git Repo with the real data on the backend S3 Server. THis is just a Git LFS. 
+All data is saved as pointers in the Git Repo with the real data on the backend S3 Server. This is just a Git LFS, and so the real data is actually stored in an S3 running locally or remotely.
 
-The actual data files lives in an S3 running locally or remotely.
+The data types are: PDF, SVG, Images, Video, WASM, JSON, Projects.
 
-The data types are: PDF, SVG, Images, Video, WASM, JSON
-
-Interestly, the Output from the Edior are the same data types. So the S3 can save Build outputs as well as the working JSN data.
+Interestly, the Output from the Editor is the same data types. So the S3 can save GUI and Logic build outputs as well as the working JSON data. 
 
 JSON data is used as a Database with SIMD acceleration for speed of indexing and parsng with a SQL language for Queries and mutations. 
 
-A GraphQL database can also be fronted in front of the JSON Database allowing Queries, Subscriptions, Mutations. 
+A GraphQL database can also be froentend in front of the JSON Database allowing Queries, Subscriptions, Mutations on everything.
+
+The GUI Data Editor that looks like a Google sheet is provided. WASM Functions to do mutations on cells are WASM functions that are pipelined by the Bus. 
+
+Modules: By joining up Data via WASM functions, your able to reuse WASM to create larger sheets.
+
+Reuse: Sheets can then be virtual, allowing Materilaised Sheets to be creatd from other sheets.
+
+### Bus
+
+The Bus is the transport between parts of the above system.
+
+There are 2 bus implementations:
+
+- In Process: Between the GUI and the File system.
+
+- Out of Process: Between you machine and other machines is the NATS bus.
+
+The Bus is a Pub Sub system with the Producer and Consumer decoupled at Design time. We wire them up at Runtime. A Manifest described this Logical to Physical coupling that the Rune Time uses.
+
+So all Endpoints are virtual wih Bus control plane joining the virtual Endpoints up to real Endpoints at runtime. These Actors are described in a Manifest and then enforced by the Runtime using the Security system and control plane.
+
+A Producer can be the Data Layer or the GUI Layer. 
+
+A Consumer can be the Data Layer or the GUI Layer. 
+
+
+Computaion using the Logic embodied in the WASM is pipelined between virtual endpoints, allowing you to do Computation, and surface data change events in the GUI. 
+
+Mutations are DATA Change chaneg events onto the data, that are use standad Chaneg Data Detection to 
+
+### Regitry
+
+Every artifact of the system can be found and reused by others.
+
+Projects: You can import another Project into your project. 
+
+Projects Targets: You can reuse the outputs of someones elses Project in your Project for the GUI or the Data layer.
+
+Data: You can reuse the Data from one Proejct another Project.
+
+Data Target: You can reuse the Data from someones elses Project in your Project 
 
 ## Dependencies
 
