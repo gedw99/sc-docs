@@ -2,6 +2,7 @@
 
 This is the docs repo of the Open Science project.
 
+WIP: Its very much a work in progress as we try approaches out. Contact me if your interested..
 ![](logo.png)
 
 ## Aims
@@ -12,11 +13,9 @@ This is the docs repo of the Open Science project.
 
 - Secure: Accounts to control who can see and do what.
 
-Its very much a work in progress as we try approaches out.
-
 ## Usage 
 
-Forom a users perspective it's made up of an:
+From an Editors perspective it's made up of:
 
 - Editor and Renderer
 
@@ -54,15 +53,21 @@ The code is WASM to WASM on the fly, via the Cloud Server, and synced back to yo
 
 That WASM runs in the Client and Server.
 
-## Data
+### Data
 
-Binaries such as Images , and outputs from the GUI pipeline such as PDF, etc are stored on your File System.
+All data is stored on your local disk, and is a Git Repo.
+
+All data is saved as pointers in the Git Repo with the real data on the backend S3 Server. THis is just a Git LFS. 
+
+The actual data files lives in an S3 running locally or remotely.
+
+The data types are: PDF, SVG, Images, Video, WASM, JSON
+
+Interestly, the Output from the Edior are the same data types. So the S3 can save Build outputs as well as the working JSN data.
 
 JSON data is used as a Database with SIMD acceleration for speed of indexing and parsng with a SQL language for Queries and mutations. 
 
-A GraphQL database can also be fronted in front of the JSON Database allows Queries, Subscriptions, Mutations. 
-
-
+A GraphQL database can also be fronted in front of the JSON Database allowing Queries, Subscriptions, Mutations. 
 
 ## Dependencies
 
