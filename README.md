@@ -14,21 +14,55 @@ This is the docs repo of the Open Science project.
 
 Its very much a work in progress as we try approaches out.
 
-Its made up of an Editor and Renderer.
+## Usage 
 
-## Editor
+Forom a users perspective it's made up of an:
 
-The GUI to allow you to edit the source via a WYSIWYG GUI.
+- Editor and Renderer
 
-When you change something, we rewrite the IDL source and the Renderer redraws.
+- Logic 
 
-## Renderer
+- Data
 
-Render targets are:
+### Editor
 
-PDF, PNG, SVG, Web.
+The GUI to allow you to edit the source via a WYSIWYG GUI that runs anywhere WASM runs such as Web, Desktop, Mobile.
 
-It allows Single Sourcing in that you can use just Deck source to output all the Rendering targets at once.
+Real time Collaboration: The IDL describing your GUI is synchronised with others usrs using OT ( Operational Transforms ). The Project on yor disk is the master, and your letting other edit your master. Other users reach you via QUIC Web Transport.
+
+Non Real Time Collaboration: Each Proejct is saved to your disk disk and is a git repo, so that you can use git for non real time collaboration. 
+
+Mutations: When you change a Widget or data binding in the Editor , we rewrite the IDL source and the Renderer redraws diffing and merging from the previosus frame render.  The history is saved via the OT tree.
+
+Actors: A User that is using an App that you created in the Editor is the exact Runtoe and IDL code. So if they have edit rights, they can fork and edit the Project also. This is all done seamlessly for them.
+
+### Renderer
+
+All rendering is GPU accelerated for Online and Offline rendering.
+
+OnLine Rendering: Its fast enough to do animations on most modern machines. 
+
+Off Line rendering: For Video outout or massive lasrge PDF or Images, the Edit history is used as a Non Linear Editor, so that you can render at 4 K if needed. 
+
+Render targets are: WASM ( Web, Mobile Desktop, TV ), PDF, PNG, SVG, Web. This is a type of Single Sourcing.
+
+### Logic
+
+Developers write logic in any language that compiles to WASM.
+
+The code is WASM to WASM on the fly, via the Cloud Server, and synced back to your Editor or Disk.
+
+That WASM runs in the Client and Server.
+
+## Data
+
+Binaries such as Images , and outputs from the GUI pipeline such as PDF, etc are stored on your File System.
+
+JSON data is used as a Database with SIMD acceleration for speed of indexing and parsng with a SQL language for Queries and mutations. 
+
+A GraphQL database can also be fronted in front of the JSON Database allows Queries, Subscriptions, Mutations. 
+
+
 
 ## Dependencies
 
@@ -48,14 +82,14 @@ In the Lab:
 In the Cloud:
 
 - A **Web Server**.
-  - Loads the GUI from in the Lab. 
+  - Loads the GUI from in the Lab for Users.
 - A **NATS Server**.
   - Brokers messages from this **NATS Server** to / from the NATS Leaf Server in the Lab.
 
 In the users Browser:
 
 - The **GUI**.
-  - Serves the Deck slides 
+  - Serves the IDL
   - Loads the data from the **NATS Server** in the Cloud.
 
 Other Labs:
