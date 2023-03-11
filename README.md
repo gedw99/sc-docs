@@ -16,6 +16,20 @@ Mermaid sequence diagrams to come soon.
 
 - Secure: Accounts to control who can see and do what.
 
+## Use Cases
+
+Its a type of AI / ML system that employs a Data Lake allowing for massive compute on your data.
+
+Many Projects can reuse the data in the Data Lake so do their Compute and Charting.
+
+Compute is WASM, so that the compute can be deployed on any device and updtaed remotely.
+
+The whole thing is re-entrant and recursive, so that:
+
+- Projects can reuse other Projects. Like any Framework where you import other projects.
+- Compute can reuse other Compute. Like any langage where you import another module or package.
+- Data can reuse other data. Like a Foreign key in a SQL DB.
+
 ## Usage 
 
 From an Editors perspective it's made up of:
