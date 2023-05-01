@@ -120,7 +120,7 @@ Computaion using the Logic embodied in the WASM is pipelined between virtual end
 
 Mutations are DATA Change chaneg events onto the data, that are use standad Chaneg Data Detection to 
 
-### Regitry
+### Registry
 
 Every artifact of the system can be found and reused by others.
 
